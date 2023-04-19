@@ -4,7 +4,7 @@
 typedef int elemtype;
 
 typedef struct hash_data{
-    long long int max_elems;
+    int max_elems;
     elemtype* aIndex;    
 }hash_data;
 
@@ -31,7 +31,7 @@ int countCol(HashTable H, int* rand){
     }
 
     int col=0;
-    for(int i=0;i<1000;i++){
+    for(int i=0;i<H->max_elems;i++){
         if(H->aIndex[i]>1){
             col+=H->aIndex[i]-1;
         }
@@ -48,12 +48,13 @@ int main(){
     HashTable H=init_hash(j);
     int randarr[1000];
         for(int i=0;i<1000;i++){
-            randarr[i]=rand()%100000;
+            randarr[i]=rand()%1000;
+            randarr[i]=randarr[i]*randarr[i];
         }
-        colarr[j-1]=countCol(H, randarr);
+        colarr[j]=countCol(H, randarr);
     }
 
-    for(int i=0;i<100;i++){
+    for(int i=1;i<101;i++){
         printf("%d \n", colarr[i]);
     }
     return 0;
