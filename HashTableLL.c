@@ -33,6 +33,21 @@ indHT getkey(str key, len n){
     return sum;
 };
 
+// polynomial hashing/ rolling hash
+//given a string x0x1x2x3...xn
+//the hash function will be given by x_0+ x_1*p+ x_2*p^2 + ... x_n*p^n mod (TableSize)
+//we do not want to use xi which will be 0. This is because if any xi
+//is 0, then we will have x0, x0x0, x0x0x0, all mapping to the same value.
+
+indHT getkey(str key, len n){
+    int sum=0;
+    for(int i=0;i<n;i++){
+        sum+=(int)(str[i]-'a'+1);
+    }
+    sum=sum % 13;
+    return sum;
+};
+
 HashTable init_hash(long long int capacity){
     HashTable H= (HashTable)malloc(sizeof(hash_data));
     H->max_elems=capacity;
@@ -78,7 +93,7 @@ elemtype InsertSC(HashTable H, str elem, len n){
 
 
 int main(){
-    HashTable H=init_hash(13);
+    HashTable H=init_hash(12);
     str a="asdf";
     InsertSC(H, a, 4);
     printf("%s", Find(H, a ,4)->key);
