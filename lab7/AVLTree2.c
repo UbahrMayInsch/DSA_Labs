@@ -1,6 +1,5 @@
 #include "AVLTree2.h"
 
-//sketchtopia password: NnsiCBS5zb3NsRJ
 
 ptrNode MakeNode(elemType x){
     node* new=(node*)malloc(sizeof(node));
@@ -17,7 +16,7 @@ int max(int a, int b){
 
 int height(ptrNode T){
     if(T == NULL){
-        return 0;
+        return -1;
     }
     else{
         return T->height;
@@ -32,20 +31,20 @@ Tree Insert(Tree T, elemType x){
     else{
         if(x > T->val){
             T->R=Insert(T->R, x);
-            if((height(T->R)-height(T->L)== -2) && (T->L->val > x)){
+            if((height(T->R)-height(T->L)== 2) && (T->R->val < x)){
                 T=SingleRotateWithRight(T);
             }
-            else if((height(T->R)-height(T->L) == -2) && (T->L->val < x)){
+            else if((height(T->R)-height(T->L) == 2) && (T->R->val > x)){
                 T=DoubleRotateWithRight(T);
             }
         }
         else if(x < T->val){
             T->L=Insert(T->L, x);
             // T->BF+=1;
-            if((height(T->R)-height(T->L) == 2) && (T->L->val > x)){
+            if((height(T->R)-height(T->L) == -2) && (T->L->val > x)){
                 T=SingleRotateWithLeft(T);
             }
-            else if((height(T->R)-height(T->L) == 2) && (T->L->val < x)){
+            else if((height(T->R)-height(T->L) == -2) && (T->L->val < x)){
                 T=DoubleRotateWithLeft(T);
                 
             }
